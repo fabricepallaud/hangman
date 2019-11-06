@@ -34,7 +34,7 @@ export default {
       }
       if (!letterFound) {
         this.$store.commit('INCREMENT_STROKE_COUNTER')
-        if (this.$store.state.nbOfStrokes === 11) {
+        if (this.$store.state.nbOfStrokes === 10) {
           this.$store.commit('SET_GAME_OVER', true)
         }
       }
