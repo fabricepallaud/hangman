@@ -1,13 +1,16 @@
 <template>
   <section class="keyboard">
-    <div class="letter" v-for="(letter, i) in letters" :key="i">
-      {{ letter }}
-    </div>
+    <key class="letter" v-for="(letter) in letters" :key="letter" :letter="letter" />
   </section>
 </template>
 
 <script>
+import Key from '@/components/Key.vue'
+
 export default {
+  components: {
+    Key
+  },
   data () {
     return {
       letters: [
@@ -37,7 +40,8 @@ export default {
         'b',
         'n',
         'm'
-      ]
+      ],
+      disabled: false
     }
   }
 }
@@ -54,26 +58,6 @@ export default {
     content: '';
     width: 100%;
     order: 1;
-  }
-}
-
-.letter {
-  background: #eeeeee;
-  text-transform: uppercase;
-  padding: 0.75rem 1rem;
-  margin: 0 0.25rem 0.5rem;
-
-  &:nth-child(n + 11) {
-    order: 1;
-  }
-
-  &:nth-child(n + 20) {
-    order: 2;
-  }
-
-  &:hover {
-    background: #dddddd;
-    cursor: pointer;
   }
 }
 </style>

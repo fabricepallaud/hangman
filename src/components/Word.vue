@@ -1,37 +1,31 @@
 <template>
   <section class="word">
-    <div class="letter-slot" v-for="(letter, i) in wordToGuess" :key="i">
+    <div class="letter-slot" v-for="(letter, i) in wordToGuessAsArray" :key="i">
+      {{ letter }}
     </div>
   </section>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      wordsAvailable: [
-        'screwdriver',
-        'football',
-        'movie',
-        'keyboard',
-        'strawberry',
-        'school',
-        'marriage',
-        'jacket',
-        'electricity',
-        'argument',
-        'vacation',
-        'christmas',
-        'teleporter',
-        'history',
-        'purple',
-        'mattress'
-      ],
-      wordToGuess: null
+  computed: {
+    wordToGuessAsArray () {
+      return this.$store.state.wordToGuessAsArray
+    },
+    wordToGuess () {
+      return this.$store.state.wordToGuess
     }
   },
   mounted () {
-    this.wordToGuess = this.wordsAvailable[this.wordsAvailable.length * Math.random() | 0]
+    const wordsAvailable = this.$store.state.wordsAvailable
+    const wordToGuess = wordsAvailable[wordsAvailable.length * Math.random() | 0]
+    this.$store.commit('SET_WORD_TO_GUESS', wordToGuess)
+    if (this.wordToGuessAsArray.length === 0) {
+      for (var i = 0; i < wordToGuess.length; i++) {
+        this.$store.commit('SET_WORD_AS_ARRAY_PUSH')
+      }
+    }
+    console.log('word to guess = ' + wordToGuess)
   }
 }
 </script>
@@ -44,7 +38,7 @@ export default {
 }
 
 .letter-slot {
-  background: #eeeeee;
+  background: #FFEAAD;
   text-transform: uppercase;
   width: 4rem;
   height: 4rem;
