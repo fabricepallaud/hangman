@@ -11,21 +11,11 @@ export default {
   computed: {
     wordToGuessAsArray () {
       return this.$store.state.wordToGuessAsArray
-    },
-    wordToGuess () {
-      return this.$store.state.wordToGuess
     }
   },
   mounted () {
-    const wordsAvailable = this.$store.state.wordsAvailable
-    const wordToGuess = wordsAvailable[wordsAvailable.length * Math.random() | 0]
-    this.$store.commit('SET_WORD_TO_GUESS', wordToGuess)
-    if (this.wordToGuessAsArray.length === 0) {
-      for (var i = 0; i < wordToGuess.length; i++) {
-        this.$store.commit('SET_WORD_AS_ARRAY_PUSH')
-      }
-    }
-    console.log('word to guess = ' + wordToGuess)
+    this.$store.commit('RESTART_GAME', true)
+    this.$store.commit('INITIALIZE_WORD', true)
   }
 }
 </script>
@@ -34,11 +24,11 @@ export default {
 .word {
   display: flex;
   justify-content: center;
-  margin-bottom: 3rem;
+  margin: 2rem 0;
 }
 
 .letter-slot {
-  background: #FFEAAD;
+  background: #ffeaad;
   text-transform: uppercase;
   width: 4rem;
   height: 4rem;

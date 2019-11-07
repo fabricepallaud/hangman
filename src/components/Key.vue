@@ -24,15 +24,14 @@ export default {
       let letterFound = false
       for (var i = 0; i < wordToGuess.length; i++) {
         if (letter === wordToGuess[i]) {
-          this.$store.commit('SET_WORD_AS_ARRAY', { letter, i })
+          this.$store.commit('SET_LETTER_IN_WORD_AS_ARRAY', { letter, i })
           letterFound = true
         }
       }
       if (this.$store.state.wordToGuessAsArray.every(x => x !== '')) {
         this.$store.commit('SET_GAME_OVER', true)
         this.$store.commit('SET_GUESSER_WON', true)
-      }
-      if (!letterFound) {
+      } else if (!letterFound) {
         this.$store.commit('INCREMENT_STROKE_COUNTER')
         if (this.$store.state.nbOfStrokes === 10) {
           this.$store.commit('SET_GAME_OVER', true)

@@ -43,6 +43,12 @@ export default {
       ],
       disabled: false
     }
+  },
+  methods: {
+    computerPicksRandomLetter () {
+      // const randomLetter = this.letters[26 * Math.random() | 0]
+      // alert(randomLetter)
+    }
   }
 }
 </script>

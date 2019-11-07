@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <p v-if="guesserWon">
+  <div class="game-over">
+    <p v-if="guesserWon" class="win">
       Guesser wins!
     </p>
-    <p v-else>
+    <p v-else class="lose">
       Guesser loses!
     </p>
   </div>
@@ -20,4 +20,18 @@ export default {
 </script>
 
 <style lang="scss">
+.game-over {
+  p {
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    &.win {
+      color: #6dba2c;
+    }
+
+    &.lose {
+      color: red;
+    }
+  }
+}
 </style>
