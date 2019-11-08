@@ -42,7 +42,11 @@ export default {
     startGameHumanGuesser () {
       this.$store.commit('SET_GUESSER_AS_HUMAN', true)
       this.$store.commit('RESTART_GAME', true)
-      this.$store.commit('SET_KEYBOARD_VISIBILITY', true)
+      // restore disabled keys from previous game
+      this.$store.commit('SET_KEYBOARD_VISIBILITY', false)
+      this.$nextTick(() => {
+        this.$store.commit('SET_KEYBOARD_VISIBILITY', true)
+      })
       this.$store.commit('INITIALIZE_WORD', true)
     },
     async startGameComputerGuesser () {
