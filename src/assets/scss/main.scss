@@ -8,3 +8,12 @@ $breakpoint-md: "only screen and (min-width: 768px)";
 @mixin breakpoint-md {
   @media #{$breakpoint-md} {@content}
 }
+
+$white: #FFFFFF;
+$red: #FF0000;
+$gray01: #EEEEEE;
+$gray02: #DDDDDD;
+$gray03: #FCFCFC;
+$gray04: #888888;
+$orange01: #FFEAAD;
+$green01: #6DBA2C;

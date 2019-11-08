@@ -42,7 +42,7 @@ export default {
   cursor: pointer;
 
   &.active {
-    background: #6dba2c;
+    background: $green01;
     color: white;
   }
 

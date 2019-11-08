@@ -47,7 +47,7 @@ export default {
 
 <style scoped lang="scss">
 .letter {
-  background: #eeeeee;
+  background: $gray01;
   text-transform: uppercase;
   width: 1.5rem;
   height: 1.5rem;
@@ -79,7 +79,7 @@ export default {
   }
 
   &:hover {
-    background: #dddddd;
+    background: $gray02;
     cursor: pointer;
   }
 
@@ -88,7 +88,7 @@ export default {
   }
 
   &:disabled {
-    background: #dddddd;
+    background: $gray02;
   }
 }
 </style>

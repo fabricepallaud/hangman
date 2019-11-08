@@ -32,7 +32,7 @@ export default {
 }
 
 .letter-slot {
-  background: #ffeaad;
+  background: $orange01;
   text-transform: uppercase;
   width: 1.5rem;
   height: 1.5rem;

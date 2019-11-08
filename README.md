@@ -1,29 +1,9 @@
 # hangman
 
-## Project setup
-```
-npm install
-```
+Hangman game built with Vue.js. Two game modes are available: (1) the human player is the guesser, and (2) the computer is the guesser (in which case human player provides the word for the computer to guess).
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Notes
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- User-supplied word is validated by third-party word API (dictionaryapi.com)
+- The state of the game is mostly managed by Vuex
+- ES6 async/await functions are used several times in the project (support is now wide but perhaps not universal yet)

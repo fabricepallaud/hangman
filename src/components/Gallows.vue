@@ -32,8 +32,8 @@ export default {
   width: 800px;
   max-width: 100%;
   height: 300px;
-  background: #fcfcfc;
-  border: 1px solid #dddddd;
+  background: $gray03;
+  border: 1px solid $gray02;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -42,12 +42,12 @@ export default {
 }
 
 circle {
-  fill: #ffffff;
+  fill: $white;
 }
 
 line,
 circle {
-  stroke: #888;
+  stroke: $gray04;
   stroke-width: 4;
 }
 </style>

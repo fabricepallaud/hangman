@@ -26,11 +26,11 @@ export default {
     font-weight: bold;
 
     &.win {
-      color: #6dba2c;
+      color: $green01;
     }
 
     &.lose {
-      color: red;
+      color: $red;
     }
   }
 }
