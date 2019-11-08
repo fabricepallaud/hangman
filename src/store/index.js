@@ -28,6 +28,8 @@ export default new Vuex.Store({
     ],
     showKeyboard: true,
     nbOfStrokes: 0,
+    lettersFound: [],
+    nbOfLettersToGuess: null,
     gameIsOver: false,
     wordWasFound: false,
     guesserIsHuman: true,
@@ -68,6 +70,7 @@ export default new Vuex.Store({
       state.gameIsOver = false
       state.wordWasFound = false
       state.guesserWon = false
+      state.lettersFound.splice(0)
     },
     INITIALIZE_WORD (state, value) {
       const wordsAvailable = state.wordsAvailable
@@ -77,23 +80,33 @@ export default new Vuex.Store({
       }
     },
     COMPUTER_PICKS_LETTER (state) {
-      const randomLetter = String.fromCharCode(97 + 26 * Math.random() | 0)
-      let letterFound = false
+      let randomLetter
+      do {
+        randomLetter = String.fromCharCode(97 + 26 * Math.random() | 0)
+      } while (state.lettersFound.includes(randomLetter))
+      let letterWasFound = false
       for (var i = 0; i < state.wordToGuess.length; i++) {
         if (randomLetter === state.wordToGuess[i]) {
           Vue.set(state.wordToGuessAsArray, i, randomLetter)
-          letterFound = true
+          letterWasFound = true
+          state.nbOfLettersToGuess--
+          if (!state.lettersFound.includes(randomLetter)) {
+            state.lettersFound.push(randomLetter)
+          }
         }
       }
       if (state.wordToGuessAsArray.every(x => x !== '')) {
         state.gameIsOver = true
         state.guesserWon = true
-      } else if (!letterFound) {
+      } else if (!letterWasFound) {
         state.nbOfStrokes++
         if (state.nbOfStrokes === 10) {
           state.gameIsOver = true
         }
       }
+    },
+    SET_NB_OF_LETTER_TO_GUESS (state, value) {
+      state.nbOfLettersToGuess = value
     },
     SET_KEYBOARD_VISIBILITY (state, value) {
       state.showKeyboard = value

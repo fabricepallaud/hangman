@@ -24,7 +24,11 @@ export default {
 .word {
   display: flex;
   justify-content: center;
-  margin: 2rem 0;
+  margin: 0;
+
+  @include breakpoint-small {
+    margin: 2rem 0;
+  }
 }
 
 .letter-slot {

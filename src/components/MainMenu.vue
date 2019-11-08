@@ -31,39 +31,28 @@ export default {
       this.$store.commit('RESTART_GAME', true)
       this.$store.commit('SET_KEYBOARD_VISIBILITY', false)
 
-      // const wordToGuess = 'jacketa'
-
-      // const wordApiBaseUrl = 'https://www.dictionaryapi.com/api/v1/references/sd4/xml'
-      // while (true) {
-      //   const wordToGuess = prompt('Enter a word:').toUpperCase()
-      //   const endPointUrl = `${wordApiBaseUrl}/${wordToGuess}?key=${wordApiKey}`
-      //   this.axios.get(endPointUrl).then(res => {
-      //     console.log(res.data)
-      //     if (res.data.includes('def')) {
-      //       break
-      //     }
-      //   })
-      // }
-
+      let wordIsValidated = false
       var wordToGuess = ''
       const vm = this
       const dispatcher = {
-        execute: () => {
+        async execute () {
           const wordApiBaseUrl = 'https://www.dictionaryapi.com/api/v1/references/sd4/xml'
           wordToGuess = prompt('Enter a word:').toLowerCase()
-          vm.axios.get(`${wordApiBaseUrl}/${wordToGuess}?key=${wordApiKey}`).then(res => {
-            console.log(res.data)
-            if (!res.data.includes('def')) {
-              this.execute()
-            }
-          })
+          const res = await vm.axios.get(`${wordApiBaseUrl}/${wordToGuess}?key=${wordApiKey}`)
+          return res.data.includes('def')
         }
       }
-      dispatcher.execute()
 
+      while (!wordIsValidated) {
+        wordIsValidated = await dispatcher.execute()
+      }
+
+      const wordToGuessLength = wordToGuess.length
       this.$store.commit('SET_WORD_TO_GUESS', wordToGuess)
+      this.$store.commit('SET_NB_OF_LETTER_TO_GUESS', wordToGuessLength)
+      // console.log(`word length = ${wordToGuessLength}`)
       this.$store.commit('EMPTY_WORD_AS_ARRAY')
-      for (var i = 0; i < wordToGuess.length; i++) {
+      for (var i = 0; i < wordToGuessLength; i++) {
         this.$store.commit('SET_WORD_AS_ARRAY_PUSH')
       }
       while (!this.$store.state.gameIsOver) {

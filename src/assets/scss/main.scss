@@ -1,0 +1,5 @@
+$breakpoint-small: "only screen and (min-width: 600px)";
+
+@mixin breakpoint-small {
+  @media #{$breakpoint-small} {@content}
+}
