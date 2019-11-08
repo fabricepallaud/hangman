@@ -23,6 +23,7 @@ export default {
       this.disabled = true
       let letterFound = false
       for (var i = 0; i < wordToGuess.length; i++) {
+        // display letter found
         if (letter === wordToGuess[i]) {
           this.$store.commit('SET_LETTER_IN_WORD_AS_ARRAY', { letter, i })
           letterFound = true
@@ -32,7 +33,9 @@ export default {
         this.$store.commit('SET_GAME_OVER', true)
         this.$store.commit('SET_GUESSER_WON', true)
       } else if (!letterFound) {
+        // if letter doesn't belong to word, make new stroke
         this.$store.commit('INCREMENT_STROKE_COUNTER')
+        // hangman complete means game's over
         if (this.$store.state.nbOfStrokes === 10) {
           this.$store.commit('SET_GAME_OVER', true)
         }
@@ -46,12 +49,26 @@ export default {
 .letter {
   background: #eeeeee;
   text-transform: uppercase;
-  width: 3rem;
-  height: 3rem;
-  line-height: 3rem;
-  margin: 0 0.25rem 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  margin: 0 0.125rem 0.25rem;
   position: relative;
   border: 0;
+
+  @include breakpoint-sm {
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    margin: 0 0.25rem 0.5rem;
+  }
+
+  @include breakpoint-md {
+    width: 3rem;
+    height: 3rem;
+    line-height: 3rem;
+    margin: 0 0.25rem 0.5rem;
+  }
 
   &:nth-child(n + 11) {
     order: 1;

@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
+import wordApiKey from '@/wordApi.js'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    wordApiBaseUrl: 'https://www.dictionaryapi.com/api/v1/references/sd4/xml',
     wordToGuess: null,
     wordToGuessAsArray: [],
     computerIsGuesser: false,
@@ -80,10 +83,17 @@ export default new Vuex.Store({
       }
     },
     COMPUTER_PICKS_LETTER (state) {
-      let randomLetter
-      do {
-        randomLetter = String.fromCharCode(97 + 26 * Math.random() | 0)
-      } while (state.lettersFound.includes(randomLetter))
+      // few letters left: computer picks a letter based on suggestions
+      var randomLetter
+      if (state.nbOfLettersToGuess < 3) {
+
+      } else {
+        // computer picks a letter randomly
+        do {
+          randomLetter = String.fromCharCode(97 + 26 * Math.random() | 0)
+        } while (state.lettersFound.includes(randomLetter))
+      }
+      // checking if letter belongs to word
       let letterWasFound = false
       for (var i = 0; i < state.wordToGuess.length; i++) {
         if (randomLetter === state.wordToGuess[i]) {
@@ -95,11 +105,14 @@ export default new Vuex.Store({
           }
         }
       }
+      // if all letters were found
       if (state.wordToGuessAsArray.every(x => x !== '')) {
         state.gameIsOver = true
         state.guesserWon = true
       } else if (!letterWasFound) {
+        // otherwise make a stroke
         state.nbOfStrokes++
+        // if hangman complete game is over
         if (state.nbOfStrokes === 10) {
           state.gameIsOver = true
         }
@@ -110,6 +123,59 @@ export default new Vuex.Store({
     },
     SET_KEYBOARD_VISIBILITY (state, value) {
       state.showKeyboard = value
+    },
+    resolveAfter2Seconds () {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve('resolved')
+        }, 300)
+      })
+    }
+  },
+  actions: {
+    async computerPicksLetter ({ commit, state }) {
+      // few letters left: computer picks a letter based on suggestions
+      var randomLetter
+      if (state.nbOfLettersToGuess <= 4) {
+        await new Promise(resolve => {
+          axios.get(`${state.wordApiBaseUrl}/${state.wordToGuess}?key=${wordApiKey}`)
+            .then((res) => {
+              // console.log(res.data)
+              console.log(state.lettersFound)
+              resolve(res)
+            })
+          // return res.data.includes('def')
+        })
+      } else {
+        // computer picks a letter randomly
+        do {
+          randomLetter = String.fromCharCode(97 + 26 * Math.random() | 0)
+        } while (state.lettersFound.includes(randomLetter))
+      }
+      // checking if letter belongs to word
+      let letterWasFound = false
+      for (var i = 0; i < state.wordToGuess.length; i++) {
+        if (randomLetter === state.wordToGuess[i]) {
+          Vue.set(state.wordToGuessAsArray, i, randomLetter)
+          letterWasFound = true
+          state.nbOfLettersToGuess--
+          if (!state.lettersFound.includes(randomLetter)) {
+            state.lettersFound.push(randomLetter)
+          }
+        }
+      }
+      // if all letters were found
+      if (state.wordToGuessAsArray.every(x => x !== '')) {
+        state.gameIsOver = true
+        state.guesserWon = true
+      } else if (!letterWasFound) {
+        // otherwise make a stroke
+        state.nbOfStrokes++
+        // if hangman complete game is over
+        if (state.nbOfStrokes === 10) {
+          state.gameIsOver = true
+        }
+      }
     }
   }
 })

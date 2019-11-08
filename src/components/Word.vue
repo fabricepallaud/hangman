@@ -1,5 +1,5 @@
 <template>
-  <section class="word">
+  <section class="word container">
     <div class="letter-slot" v-for="(letter, i) in wordToGuessAsArray" :key="i">
       {{ letter }}
     </div>
@@ -24,9 +24,9 @@ export default {
 .word {
   display: flex;
   justify-content: center;
-  margin: 0;
+  margin: 1.5rem 0;
 
-  @include breakpoint-small {
+  @include breakpoint-sm {
     margin: 2rem 0;
   }
 }
@@ -34,12 +34,30 @@ export default {
 .letter-slot {
   background: #ffeaad;
   text-transform: uppercase;
-  width: 4rem;
-  height: 4rem;
-  line-height: 4rem;
-  font-size: 3rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
   color: purple;
-  margin: 0 0.25rem;
+  margin: 0 0.1rem;
+  border-radius: 1px;
+
+  @include breakpoint-sm {
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    font-size: 1.25rem;
+    margin: 0 0.15rem;
+    border-radius: 5px;
+  }
+
+  @include breakpoint-sm {
+    width: 4rem;
+    height: 4rem;
+    line-height: 4rem;
+    font-size: 3rem;
+    margin: 0 0.25rem;
+  }
 }
 </style>

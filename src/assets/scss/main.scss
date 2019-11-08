@@ -1,5 +1,10 @@
-$breakpoint-small: "only screen and (min-width: 600px)";
+$breakpoint-sm: "only screen and (min-width: 576px)";
+$breakpoint-md: "only screen and (min-width: 768px)";
 
-@mixin breakpoint-small {
-  @media #{$breakpoint-small} {@content}
+@mixin breakpoint-sm {
+  @media #{$breakpoint-sm} {@content}
+}
+
+@mixin breakpoint-md {
+  @media #{$breakpoint-md} {@content}
 }

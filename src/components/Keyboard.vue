@@ -1,5 +1,5 @@
 <template>
-  <section class="keyboard">
+  <section class="keyboard container">
     <key class="letter" v-for="(letter) in letters" :key="letter" :letter="letter" />
   </section>
 </template>
@@ -42,12 +42,6 @@ export default {
         'm'
       ],
       disabled: false
-    }
-  },
-  methods: {
-    computerPicksRandomLetter () {
-      // const randomLetter = this.letters[26 * Math.random() | 0]
-      // alert(randomLetter)
     }
   }
 }

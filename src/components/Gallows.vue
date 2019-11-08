@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="container">
     <div class="gallows">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240px" height="260px" viewBox="0 0 240 260" preserveAspectRatio="none">
         <line v-if="nbOfStrokes > 0" x1="5" y1="250" x2="235" y2="250" shape-rendering="crispEdges" />
@@ -30,7 +30,7 @@ export default {
 <style scoped lang="scss">
 .gallows {
   width: 800px;
-  max-width: 90vw;
+  max-width: 100%;
   height: 300px;
   background: #fcfcfc;
   border: 1px solid #dddddd;
@@ -38,14 +38,16 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-line {
-  stroke: #000000;
+  border-radius: 5px;
 }
 
 circle {
   fill: #ffffff;
-  stroke: #000000;
+}
+
+line,
+circle {
+  stroke: #888;
+  stroke-width: 4;
 }
 </style>
