@@ -82,42 +82,6 @@ export default new Vuex.Store({
         state.wordToGuessAsArray.push('')
       }
     },
-    COMPUTER_PICKS_LETTER (state) {
-      // few letters left: computer picks a letter based on suggestions
-      var randomLetter
-      if (state.nbOfLettersToGuess < 3) {
-
-      } else {
-        // computer picks a letter randomly
-        do {
-          randomLetter = String.fromCharCode(97 + 26 * Math.random() | 0)
-        } while (state.lettersFound.includes(randomLetter))
-      }
-      // checking if letter belongs to word
-      let letterWasFound = false
-      for (var i = 0; i < state.wordToGuess.length; i++) {
-        if (randomLetter === state.wordToGuess[i]) {
-          Vue.set(state.wordToGuessAsArray, i, randomLetter)
-          letterWasFound = true
-          state.nbOfLettersToGuess--
-          if (!state.lettersFound.includes(randomLetter)) {
-            state.lettersFound.push(randomLetter)
-          }
-        }
-      }
-      // if all letters were found
-      if (state.wordToGuessAsArray.every(x => x !== '')) {
-        state.gameIsOver = true
-        state.guesserWon = true
-      } else if (!letterWasFound) {
-        // otherwise make a stroke
-        state.nbOfStrokes++
-        // if hangman complete game is over
-        if (state.nbOfStrokes === 10) {
-          state.gameIsOver = true
-        }
-      }
-    },
     SET_NB_OF_LETTER_TO_GUESS (state, value) {
       state.nbOfLettersToGuess = value
     },
@@ -134,17 +98,17 @@ export default new Vuex.Store({
   },
   actions: {
     async computerPicksLetter ({ commit, state }) {
-      // few letters left: computer picks a letter based on suggestions
       var randomLetter
-      if (state.nbOfLettersToGuess <= 4) {
+      // few letters left: computer picks a letter based on suggestions by API
+      // I would need more time to think through this part, which was thus left aside,
+      // but the code would normally go right after the following condition, for which the
+      // value of 1 was chosen so that the program never goes there for now
+      if (state.nbOfLettersToGuess < 1) {
         await new Promise(resolve => {
           axios.get(`${state.wordApiBaseUrl}/${state.wordToGuess}?key=${wordApiKey}`)
             .then((res) => {
-              // console.log(res.data)
-              console.log(state.lettersFound)
               resolve(res)
             })
-          // return res.data.includes('def')
         })
       } else {
         // computer picks a letter randomly
