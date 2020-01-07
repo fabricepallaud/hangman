@@ -88,6 +88,7 @@ export default new Vuex.Store({
     SET_KEYBOARD_VISIBILITY (state, value) {
       state.showKeyboard = value
     },
+    // function below needs to be removed I think!!!!!!!!!!!!!!!!!!
     resolveAfter2Seconds () {
       return new Promise(resolve => {
         setTimeout(() => {

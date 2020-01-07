@@ -1,10 +1,15 @@
-# hangman
+# Hangman
 
 Hangman game built with Vue.
 
 Two game modes are available:
 - Human player is the guesser
 - Computer is the guesser (human player provides the word)
+
+
+## Demo
+
+http://fabricepallaud.com/hangman/
 
 ## Rules of the game
 

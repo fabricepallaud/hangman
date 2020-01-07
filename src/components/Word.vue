@@ -24,22 +24,22 @@ export default {
 .word {
   display: flex;
   justify-content: center;
-  margin: 1.5rem 0;
+  // margin: 1.5rem 0;
 
   @include breakpoint-sm {
-    margin: 2rem 0;
+    // margin: 2rem 0;
   }
 }
 
 .letter-slot {
-  background: $orange01;
+  background-color: $orange01;
   text-transform: uppercase;
   width: 1.5rem;
   height: 1.5rem;
   line-height: 1.5rem;
   font-size: 1rem;
   font-weight: bold;
-  color: purple;
+  color: $purple;
   margin: 0 0.1rem;
   border-radius: 1px;
 

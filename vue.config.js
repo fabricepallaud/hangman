@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: '/hangman/',
   css: {
     loaderOptions: {
       sass: {

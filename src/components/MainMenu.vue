@@ -30,24 +30,28 @@ export default {
 
 <style scoped lang="scss">
 .main-menu {
-  margin-top: auto;
+  // margin-top: auto;
   display: flex;
 }
 
 .player-mode {
   flex: 1 1 auto;
-  padding: 0.75rem;
+  height: 50px;
   text-transform: uppercase;
   border: none;
   cursor: pointer;
+  font-weight: bold;
+  color: $gray04;
+  text-shadow: $white 1px 1px 0;
 
   &.active {
-    background: $green01;
+    background-color: $blue01;
     color: white;
+    text-shadow: none;
   }
 
   @include breakpoint-sm {
-    padding: 1rem;
+    // padding: 1rem;
   }
 }
 </style>

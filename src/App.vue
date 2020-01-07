@@ -1,8 +1,6 @@
 <template>
   <div class="app">
-    <h1 class="app-title">
-      Hangman
-    </h1>
+    <app-header />
     <gallows />
     <word />
     <keyboard v-if="!gameIsOver && showKeyboard" />
@@ -15,6 +13,7 @@
 </template>
 
 <script>
+import AppHeader from '@/components/AppHeader.vue'
 import Gallows from '@/components/Gallows.vue'
 import Word from '@/components/Word.vue'
 import Keyboard from '@/components/Keyboard.vue'
@@ -24,6 +23,7 @@ import wordApiKey from '@/wordApi.js'
 
 export default {
   components: {
+    AppHeader,
     Gallows,
     Word,
     Keyboard,
@@ -99,6 +99,7 @@ export default {
 body {
   font-family: sans-serif;
   margin: 0;
+  background-color: $sky;
 }
 
 body,
